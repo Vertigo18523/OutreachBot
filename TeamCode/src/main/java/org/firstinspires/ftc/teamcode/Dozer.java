@@ -3,12 +3,16 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class Dozer extends LinearOpMode {
 
     private CRServo backLeft;
     private CRServo backRight;
+    private Servo eyes;
+    private Servo plowLeft;
+    private Servo plowRight;
 
     @Override
     public void runOpMode() {
@@ -22,8 +26,16 @@ public class Dozer extends LinearOpMode {
 
         backLeft = hardwareMap.get(CRServo.class, "backLeft");
         backRight = hardwareMap.get(CRServo.class, "backRight");
+        eyes = hardwareMap.get(Servo.class, "eyes");
+        plowLeft = hardwareMap.get(Servo.class, "plowLeft");
+        plowRight = hardwareMap.get(Servo.class, "plowRight");
 
         backLeft.setDirection(CRServo.Direction.REVERSE);
+        plowLeft.setDirection(Servo.Direction.REVERSE);
+
+        eyes.setPosition((double) 0.5);
+        plowLeft.setPosition((double) 0.1);
+        plowRight.setPosition((double) 0.1);
 
         waitForStart();
         if (opModeIsActive()) {
@@ -77,6 +89,22 @@ public class Dozer extends LinearOpMode {
 
                 backLeft.setPower(bl);
                 backRight.setPower(br);
+
+                if (gamepad1.x) {
+                    eyes.setPosition(0);
+                    sleep(500);
+                    eyes.setPosition((double) 1.0);
+                    sleep(500);
+                    eyes.setPosition((double) 0.5);
+                }
+
+                if (gamepad1.y) {
+                    plowLeft.setPosition((double) 0.9);
+                    plowRight.setPosition((double) 0.9);
+                } else if (gamepad1.a) {
+                    plowLeft.setPosition((double) 0.1);
+                    plowRight.setPosition((double) 0.1);
+                }
 
                 telemetry.update();
             }
