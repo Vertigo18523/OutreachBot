@@ -21,11 +21,17 @@ public class DozerOneStick extends LinearOpMode {
         double bl;
         double br;
         int speed = 1;
+<<<<<<< HEAD
         boolean shouldSlowmode = false;
         boolean slowmodeChanged = false;
         double plowPos = 0.1;
         boolean eyesOnTurn = true;
         boolean eyesChanged = false;
+=======
+        boolean slowmodeChanged = false;
+        boolean shouldSlowmode = false;
+        double plowPos = 0.1;
+>>>>>>> 4766402 (fix build.gradle merge conflict)
 
         backLeft = hardwareMap.get(CRServo.class, "backLeft");
         backRight = hardwareMap.get(CRServo.class, "backRight");
@@ -70,10 +76,19 @@ public class DozerOneStick extends LinearOpMode {
                         shouldSlowmode = !shouldSlowmode;
                         slowmodeChanged = true;
                     }
+<<<<<<< HEAD
                 } else if (slowmodeChanged) {
                     slowmodeChanged = false;
                 } else {
                     speed = shouldSlowmode ? 2 : 1;
+=======
+                } else {
+                    if (slowmodeChanged) {
+                        slowmodeChanged = false;
+                    } else {
+                        speed = shouldSlowmode ? 2 : 1;
+                    }
+>>>>>>> 4766402 (fix build.gradle merge conflict)
                 }
 
                 bl /= speed;
@@ -82,6 +97,7 @@ public class DozerOneStick extends LinearOpMode {
                 backLeft.setPower(bl);
                 backRight.setPower(br);
 
+<<<<<<< HEAD
                 if (gamepad1.back) {
                     if (!eyesChanged) {
                         eyesOnTurn = !eyesOnTurn;
@@ -107,6 +123,24 @@ public class DozerOneStick extends LinearOpMode {
                 if (gamepad1.right_stick_y != 0) {
                     if (plowPos < 0.075) {
                         plowPos = 0.075;
+=======
+                // if (gamepad1.right_stick_x != 0) {
+                //     if (eyes.getPosition() < 0.2) {
+                //         eyes.setPosition(0.2);
+                //     } else if (eyes.getPosition() > 0.8) {
+                //         eyes.setPosition(0.8);
+                //     } else {
+                //         eyes.setPosition(eyes.getPosition() + 0.01 * gamepad1.right_stick_x);
+                //         sleep(8);
+                //     }
+                // }
+
+                eyes.setPosition(0.3 * gamepad1.left_stick_x + 0.5);
+
+                if (gamepad1.right_stick_y != 0) {
+                    if (plowPos < 0) { // number tbd - see telemetry
+                        plowPos = 0; // whatever that number is
+>>>>>>> 4766402 (fix build.gradle merge conflict)
                     } else if (plowPos > 0.6) {
                         plowPos = 0.6;
                     } else {
@@ -117,6 +151,10 @@ public class DozerOneStick extends LinearOpMode {
                 plowLeft.setPosition(plowPos);
                 plowRight.setPosition(plowPos);
 
+<<<<<<< HEAD
+=======
+                telemetry.addData("Plow Position", plowPos); // remove this line when lower bound is known
+>>>>>>> 4766402 (fix build.gradle merge conflict)
                 telemetry.update();
             }
         }
