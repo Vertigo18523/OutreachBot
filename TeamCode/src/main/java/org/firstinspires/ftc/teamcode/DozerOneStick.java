@@ -105,8 +105,8 @@ public class DozerOneStick extends LinearOpMode {
                 }
 
                 if (gamepad1.right_stick_y != 0) {
-                    if (plowPos < 0) { // number tbd - see telemetry
-                        plowPos = 0; // whatever that number is
+                    if (plowPos < 0.075) {
+                        plowPos = 0.075;
                     } else if (plowPos > 0.6) {
                         plowPos = 0.6;
                     } else {
@@ -117,7 +117,6 @@ public class DozerOneStick extends LinearOpMode {
                 plowLeft.setPosition(plowPos);
                 plowRight.setPosition(plowPos);
 
-                telemetry.addData("Plow Position", plowPos); // remove this line when lower bound is known
                 telemetry.update();
             }
         }
